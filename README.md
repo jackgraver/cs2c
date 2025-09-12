@@ -1,5 +1,7 @@
 # CS2 Demo Viewer
 
+![](./assets/demo.gif)
+
 A comprehensive web-based viewer for 2D visualization and analysis of Counter-Strike 2 demo files. This project provides an intuitive interface for watching, analyzing, and managing CS2 demos with real-time playback, team statistics, and interactive map visualization.
 
 ## ✨ Features
