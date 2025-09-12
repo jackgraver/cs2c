@@ -22,7 +22,13 @@ export function PixiViewer({
 
     useEffect(() => {
         const handleResize = () => {
+            console.log("resize");
             mapViewerRef.current?.updateMap(mapI);
+            // mapViewerRef.current?.renderInterpolatedFrame(
+            //     currentTick,
+            //     previousTick!,
+            //     0
+            // );
         };
 
         window.addEventListener("resize", handleResize);

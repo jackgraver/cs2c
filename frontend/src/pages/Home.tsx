@@ -115,7 +115,7 @@ export default function Home() {
     };
 
     return (
-        <div className="p-8 text-center">
+        <div className="p-8 text-center bg-main-bg">
             {noDemos && (
                 <div className="text-center mt-8">
                     <p className="text-lg text-gray-300 mb-4">

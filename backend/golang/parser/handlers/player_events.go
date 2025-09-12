@@ -85,16 +85,17 @@ func RegisterPlayerHandler(context *HandlerContext) {
 
 			players = append(players, structs.Player{
 				Name:       pl.Name,
-				X:          int(pos.X),
-				Y:          int(pos.Y),
-				Z:          int(pos.Z),
+				X:          pos.X,
+				Y:          pos.Y,
+				Z:          pos.Z,
 				Health:     pl.Health(),
 				HasArmor:   pl.Armor() != 0,
 				IsCT:       utils.IsCT(pl),
 				HasHelmet:  pl.HasHelmet(),
 				HasDefuser: pl.HasDefuseKit(),
 				Blinded:    pl.IsBlinded(),
-				Yaw:        int(pl.ViewDirectionX()),
+				Yaw:        pl.ViewDirectionX(),
+				Pitch:		pl.ViewDirectionY(),
 				CurrentWeapon: activeWeapon,
 				Grenades: inv,
 			})

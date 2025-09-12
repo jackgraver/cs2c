@@ -3,7 +3,39 @@
 @tailwind utilities;
 
 :root {
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+    color-scheme: light dark;
+    color: rgba(255, 255, 255, 0.87);
+    /* background-color: #242424; */
+
+    --color-main-bg: hsl(0, 0%, 100%);
+    --color-first-bg: hsl(0, 0%, 95%);
+    --color-main-bg-transparent: hsla(0, 0%, 100%, 0.6);
+    --color-second-bg: hsl(0, 0%, 90%);
+    --color-third-bg: hsl(0, 0%, 85%);
+
+    --color-text-primary: hsl(0, 0%, 0%);
+    --color-text-secondary: hsl(0, 0%, 50%);
+    --color-border: hsl(0, 0%, 80%);
+    --color-gradient: linear-gradient(
+        0deg,
+        var(--color-bg),
+        var(--color-bg-light)
+    );
+}
+
+.dark {
+    --color-main-bg: hsl(0, 0%, 0%);
+    --color-main-bg-transparent: hsla(0, 0%, 0%, 0.6);
+    --color-first-bg: hsl(0, 0%, 10%);
+    --color-second-bg: hsl(0, 0%, 20%);
+    --color-third-bg: hsl(0, 0%, 30%);
+
+    --color-text-primary: hsl(0, 0%, 95%);
+    --color-text-secondary: hsl(0, 0%, 70%);
+    --color-border: hsl(0, 0%, 30%);
+    --color-gradient: linear-gradient(
+        0deg,
+        var(--color-bg),
+        var(--color-bg-dark)
+    );
 }

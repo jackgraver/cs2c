@@ -24,6 +24,7 @@ export default function TopBar({
     score_ct,
     score_t,
 }: TopBarProps) {
+    console.log(series);
     const formatTime = (time: string | undefined) => {
         if (!time) return "0.00"; // Handle undefined time
         return time.startsWith("-") ? "0.00" : time; // Check for negative
@@ -32,19 +33,19 @@ export default function TopBar({
     return (
         <div className="w-full h-12 flex items-center justify-between px-4 text-white">
             {/* Centered Scores and Time */}
-            <div className="flex items-center justify-center gap-4 mx-auto">
+            <div className="flex items-center justify-center gap-6 mx-auto">
                 {/* Left Score */}
-                <div className="text-blue-500 text-xl font-bold">
+                <div className="text-blue-500 text-2xl font-bold">
                     {score_ct}
                 </div>
 
                 {/* Current Time */}
-                <div className="text-white text-lg font-semibold select-none">
+                <div className="text-white text-2xl font-semibold select-none">
                     {formatTime(currentTick?.logical_time)}
                 </div>
 
                 {/* Right Score */}
-                <div className="text-orange-500 text-xl font-bold">
+                <div className="text-orange-500 text-2xl font-bold">
                     {score_t}
                 </div>
             </div>

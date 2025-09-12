@@ -10,6 +10,7 @@ export type Player = {
     has_helmet: boolean;
     has_defuser: boolean;
     yaw: number;
+    pitch: number;
     team_clan_name: string;
     current_weapon: string;
     grenades: string[];

@@ -1,9 +1,4 @@
-import { act, useEffect, useRef, useState } from "react";
 import { Player } from "../../lib/viewer/types/player_data";
-import { getInventoryItemName } from "../../lib/viewer/models/InventoryData";
-import HealthBar from "./HealthBar";
-
-// import ak from "../../assets/AK.svg"; // adjust path as needed
 
 type PlayerProps = {
     player?: Player;
@@ -56,7 +51,16 @@ export function PlayerCard({ player, loading }: PlayerProps) {
     const healthFill = `${player.health}%`;
 
     return (
-        <div className="relative space-y-1 text-sm w-80 mt-2 rounded-md p-2 overflow-hidden bg-gray-600">
+        <div
+            className="relative space-y-1 text-sm w-80 mt-2 rounded-md p-2 overflow-hidden bg-gray-600"
+            onClick={() => {
+                console.log(
+                    `setpos ${player.X} ${player.Y} ${player.Z};setang ${
+                        player.yaw
+                    } ${player.pitch || 0} 0.000000`
+                );
+            }}
+        >
             {/* Health bar background */}
             <div
                 className={`absolute top-0 left-0 h-full ${bgColor} z-0`}

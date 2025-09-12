@@ -11,6 +11,7 @@ type BottomBarProps = {
     togglePlay: () => void;
     speed: number;
     changeSpeed: () => void;
+    selectedRound: number;
     setSelectedRound: (round: number) => void;
 };
 
@@ -23,6 +24,7 @@ export function BottomBar({
     speed,
     changeSpeed,
     togglePlay,
+    selectedRound,
     setSelectedRound,
 }: BottomBarProps) {
     useEffect(() => {
@@ -105,6 +107,7 @@ export function BottomBar({
             <RoundScroller
                 rounds={rounds}
                 handleRoundClick={handleRoundClick}
+                selectedRound={selectedRound}
             />
         </div>
     );

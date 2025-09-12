@@ -3,19 +3,20 @@ package structs
 import "time"
 
 type Player struct {
-	X          		int      `json:"X"`
-	Y          		int      `json:"Y"`
-	Z          		int      `json:"Z"`
-	Name       		string   `json:"name"`
-	IsCT       		bool     `json:"is_ct"`
-	Health     		int      `json:"health"`
-	Blinded    		bool     `json:"blinded"`
-	HasArmor   		bool     `json:"has_armor"`
-	HasHelmet  		bool     `json:"has_helmet"`
-	HasDefuser 		bool     `json:"has_defuser"`
-	Yaw       	   	int      `json:"yaw"`
-	CurrentWeapon  	string `json:"current_weapon"`
-	Grenades 	   	[]string `json:"grenades"`
+	X          		float64     `json:"X"`
+	Y          		float64     `json:"Y"`
+	Z          		float64     `json:"Z"`
+	Name       		string   	`json:"name"`
+	IsCT       		bool     	`json:"is_ct"`
+	Health     		int      	`json:"health"`
+	Blinded    		bool     	`json:"blinded"`
+	HasArmor   		bool     	`json:"has_armor"`
+	HasHelmet  		bool     	`json:"has_helmet"`
+	HasDefuser 		bool     	`json:"has_defuser"`
+	Yaw       	   	float32     `json:"yaw"`
+	Pitch			float32		`json:"pitch"`
+	CurrentWeapon  	string 		`json:"current_weapon"`
+	Grenades 	   	[]string 	`json:"grenades"`
 }
 
 type SmokeMolly struct {

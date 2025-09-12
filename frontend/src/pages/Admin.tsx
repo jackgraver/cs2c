@@ -93,7 +93,7 @@ export default function Admin() {
                         {seriesDemos.map((f) => (
                             <div
                                 key={f.demo_id}
-                                className="rounded-xl border border-gray-600 bg-gray-900 p-4 shadow-md transition hover:shadow-lg"
+                                className="rounded-xl border border-gray-600 bg-white p-4 shadow-md transition hover:shadow-lg"
                             >
                                 <h3 className="text-lg font-semibold text-white mb-2">
                                     {f.team1} vs {f.team2}

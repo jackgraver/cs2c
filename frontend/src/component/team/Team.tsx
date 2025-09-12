@@ -31,18 +31,6 @@ export function Team({ players, team_name, ct_team }: PlayersProps) {
                     <>{team_name}</>
                 </h2>
 
-                {/* {players.length > 0 &&
-                    (!players[0].is_ct ? (
-    
-                        </h2>
-                    ) : (
-                        <h2
-                            className={`${justifyClass} text-blue-500 font-bold mb-2 text-2xl`}
-                        >
-                            <>{teamName}</>
-                        </h2>
-                    ))} */}
-
                 {loading
                     ? Array.from({ length: 5 }).map((_, i) => (
                           <PlayerCard key={`unloading-${i}`} loading />

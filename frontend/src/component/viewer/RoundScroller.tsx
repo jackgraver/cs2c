@@ -4,13 +4,14 @@ import { RoundData } from "../../lib/viewer/types/RoundData";
 type RoundScrollerProps = {
     rounds: RoundData[];
     handleRoundClick: (round_num: number) => void;
+    selectedRound: number;
 };
 
 export default function RoundScroller({
     rounds,
     handleRoundClick,
+    selectedRound,
 }: RoundScrollerProps) {
-    // console.log("rs", rounds);
     const containerRef = useRef<HTMLDivElement>(null);
     const [visibleStart, setVisibleStart] = useState(0);
     const [buttonsPerPage, setButtonsPerPage] = useState(6); // fallback default
@@ -80,7 +81,14 @@ export default function RoundScroller({
                                     ? !round.winner_ct
                                         ? "bg-orange-500 hover:bg-orange-600"
                                         : "bg-blue-500 hover:bg-blue-600"
-                                    : "bg-gray-500 hover:bg-gray-600"
+                                    : !round.winner_ct
+                                    ? "bg-yellow-800 hover:bg-orange-500"
+                                    : "bg-cyan-800 hover:bg-blue-500"
+                            }
+                            ${
+                                round.round_num === selectedRound
+                                    ? "border-2 border-yellow-500"
+                                    : ""
                             }`}
                         >
                             {round.round_num}

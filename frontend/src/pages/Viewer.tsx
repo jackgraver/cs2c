@@ -353,6 +353,7 @@ const Viewer = () => {
                                 changeSpeed={changeSpeed}
                                 onTickChange={sliderChangeTick}
                                 togglePlay={togglePlay}
+                                selectedRound={selectedRound}
                                 setSelectedRound={setSelectedRound}
                             />
                         )}
