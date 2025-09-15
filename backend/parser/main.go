@@ -7,7 +7,16 @@ import (
 )
 
 func main() {
-    rabbitURL := "amqp://guest:guest@localhost:5672/"
+    init_rabbit_conn();
+    wait_for_message();
+    <-forever
+}
+
+func init_rabbit_conn() {
+    rabbitURL := os.Getenv("RABBITMQ_URL")
+    if !rabbitmq {
+        log.Fatalf("Missing RabbitMQ URL")
+    }
     conn, err := amqp.Dial(rabbitURL)
     if err != nil {
         log.Fatalf("Failed to connect to RabbitMQ: %v", err)
@@ -47,13 +56,13 @@ func main() {
 
     log.Println("Parser waiting for messages...")
     forever := make(chan bool)
+}
 
+func wait_for_message() {
     go func() {
         for d := range msgs {
             log.Printf("Received message: %s", d.Body)
-            // TODO: process demo here
+            parse(d.Body)
         }
     }()
-
-    <-forever
 }
