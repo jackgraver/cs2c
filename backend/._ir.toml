@@ -1,9 +1,0 @@
-[build]
-cmd = "go run main.go"
-bin = "tmp/main"
-
-[log]
-time = true
-
-[watcher]
-exclude_dir = ["parsed_demos", "node_modules", "dist"]

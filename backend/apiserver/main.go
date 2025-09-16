@@ -1,48 +1,30 @@
 package main
 
 import (
+	"fmt"
 	"log"
-	"net/http"
-	"time"
 
-	"github.com/gin-contrib/cors"
-	"github.com/gin-gonic/gin"
-	amqp "github.com/rabbitmq/amqp091-go"
+	"github.com/jackgraver/cs2c/rabbitmq"
 
-    "apiserver"
+	dotenv "github.com/joho/godotenv"
 )
 
 func main() {
-    init_rabbit_conn();
-    apiserver.api();
-}
+	//backend env file
+	err := dotenv.Load("../.env")
+	if err != nil {
+		log.Fatalf("Failed to load .env file: %v", err)
+	}
 
-func init_rabbit_conn() {
-    rabbitURL := os.Getenv("RABBITMQ_URL")
-    if !rabbitmq {
-        log.Fatalf("Missing RabbitMQ URL")
-    }
-    conn, err := amqp.Dial(rabbitURL)
-    if err != nil {
-        log.Fatalf("Failed to connect to RabbitMQ: %v", err)
-    }
-    defer conn.Close()
+	//rabbit connection
+	rabbitClient, err := rabbitmq.Connect()
+	if err != nil {
+		log.Fatalf("Failed to connect to RabbitMQ: %v", err)
+	} else {
+		fmt.Println("Connected to RabbitMQ")
+	}
+	defer rabbitClient.Cleanup()
 
-    ch, err := conn.Channel()
-    if err != nil {
-        log.Fatalf("Failed to open channel: %v", err)
-    }
-    defer ch.Close()
-
-    queue, err := ch.QueueDeclare(
-        "demo_jobs",
-        true,
-        false,
-        false,
-        false,
-        nil,
-    )
-    if err != nil {
-        log.Fatalf("Failed to declare queue: %v", err)
-    }
+	//start api
+	InitApi(rabbitClient)
 }

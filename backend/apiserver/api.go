@@ -1,10 +1,17 @@
-package apiserver
+package main
 
 import (
-	"parsing"
+	"time"
+
+	"github.com/gin-contrib/cors"
+	"github.com/gin-gonic/gin"
+	"github.com/jackgraver/cs2c/rabbitmq"
+
+	"apiserver/demos"
+	"apiserver/parsing"
 )
 
-func api() {
+func InitApi(client *rabbitmq.Client) {
 	router := gin.Default()
 
 	router.Use(cors.New(cors.Config{
@@ -15,8 +22,13 @@ func api() {
 		MaxAge:           12 * time.Hour,
 	}))
 
-	parsing.create(router);
+	router.SetTrustedProxies(nil)
 
-	router.Run()	
+	api := router.Group("/")
+	{
+		parsing.Init(api, client)
+		demos.Create(api)
+	}
 
+	router.Run(":8080")
 }

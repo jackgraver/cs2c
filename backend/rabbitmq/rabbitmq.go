@@ -84,6 +84,23 @@ func (c *Client) Publish(queue string, body []byte) error {
 	return nil
 }
 
+func (c *Client) Consume() <-chan amqp.Delivery {
+	msgs, err := c.channel.Consume(
+        "demo_jobs",
+        "",
+        true,
+        false,
+        false,
+        false,
+        nil,
+    )
+    if err != nil {
+		return nil
+    }
+
+	return msgs
+}
+
 // Close closes the RabbitMQ connection and channel
 func (c *Client) Close() error {
 	var err error

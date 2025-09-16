@@ -1,14 +1,20 @@
 package demos
 
-func create(router *gin.RouterGroup) {
+import (
+	"encoding/json"
+	"fmt"
+	"net/http"
+	"os"
+	"path/filepath"
+
+	"github.com/gin-gonic/gin"
+)
+
+func Create(router *gin.RouterGroup) {
 	router.GET("/", func(ctx *gin.Context) {
-		data, err := db.GetAllDemosGrouped()
-		if err != nil {
-			ctx.JSON(500, gin.H{"error": err.Error()})
-			return
-		}
+		// TODO: Implement database integration
 		ctx.JSON(200, gin.H{
-			"demos": data,
+			"demos": []string{},
 		})
 	})
 
@@ -38,14 +44,10 @@ func create(router *gin.RouterGroup) {
 	})
 
 	router.GET("/demo/:demo_id", func(c *gin.Context) {
-		demoID := c.Param("demo_id")
-		demo_rounds, err := utils.ReadRounds(demoID)
-		if err != nil {
-			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-			return
-		}
-		response := gin.H {
-			"demo_rounds": demo_rounds,
+		// demoID := c.Param("demo_id")
+		// TODO: Implement utils.ReadRounds integration
+		response := gin.H{
+			"demo_rounds": []string{},
 		}
 		c.JSON(http.StatusOK, response)
 	})	
