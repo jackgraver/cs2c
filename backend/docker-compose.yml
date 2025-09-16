@@ -1,0 +1,38 @@
+version: "3.9"
+
+services:
+    rabbitmq:
+        image: rabbitmq:3-management
+        container_name: rabbitmq
+        ports:
+            - "5672:5672" # AMQP
+            - "15672:15672" # Management UI
+        environment:
+            RABBITMQ_DEFAULT_USER: guest
+            RABBITMQ_DEFAULT_PASS: guest
+
+    apiserver:
+        build: ./apiserver
+        container_name: apiserver
+        ports:
+            - "8080:8080"
+        volumes:
+            - ./apiserver:/app # mount source
+        environment:
+            RABBITMQ_URL: amqp://guest:guest@rabbitmq:5672/
+        depends_on:
+            - rabbitmq
+        # command: sh -c "air" # or another live reload tool
+        command: go run main.go
+
+    parsingservice:
+        build: ./parsingservice
+        container_name: parsingservice
+        volumes:
+            - ./parsingservice:/app
+        environment:
+            RABBITMQ_URL: amqp://guest:guest@rabbitmq:5672/
+        depends_on:
+            - rabbitmq
+        # command: sh -c "air"
+        command: go run main.go

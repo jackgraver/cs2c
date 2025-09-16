@@ -7,11 +7,13 @@ import (
 	dotenv "github.com/joho/godotenv"
 	amqp "github.com/rabbitmq/amqp091-go"
 
+	parser "parsingservice/parser"
+
 	"github.com/jackgraver/cs2c/rabbitmq"
 )
 
 var (
-	msgs  <-chan amqp.Delivery
+	msgs <-chan amqp.Delivery
 )
 
 func main() {
@@ -40,6 +42,6 @@ func waitForMessage() {
 	fmt.Println("message", len(msgs))
 	for d := range msgs {
 		log.Printf("Received message: %s", d.Body)
-		Parse(string(d.Body))
+		parser.Parse(string(d.Body))
 	}
 }

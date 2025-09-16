@@ -1,4 +1,4 @@
-package main
+package parser
 
 import (
 	"fmt"
@@ -12,7 +12,6 @@ func CreateHandlers(context *handlers.HandlerContext) {
 	handlers.RegisterBombHandler(context)
 	handlers.RegisterKillHandlers(context)
 }
-
 
 func Parse(fileName string) {
 	// This function will be called when a message is received from RabbitMQ

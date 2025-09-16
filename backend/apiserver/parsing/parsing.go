@@ -58,7 +58,7 @@ func uploadFile(c *gin.Context) (string, error) {
 	}
 
 	savePath := filepath.Join(saveDir, file.Filename)
-	
+
 	out, err := os.Create(savePath)
 	if err != nil {
 		c.JSON(500, gin.H{"error": "Failed to create file"})

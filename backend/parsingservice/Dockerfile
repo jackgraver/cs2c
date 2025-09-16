@@ -1,12 +1,12 @@
-FROM golang:1.21-alpine
+FROM golang:1.24.3
 
-RUN apk add --no-cache git curl bash && \
-    go install github.com/cosmtrek/air@latest
+# RUN apk add --no-cache git curl bash && \
+#     go install github.com/cosmtrek/air@latest
 
 WORKDIR /app
 
 COPY go.mod ./
-RUN go mod download
+# RUN go mod download
 
 COPY . .
 
