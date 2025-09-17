@@ -5,9 +5,9 @@ import (
 	"log"
 	"os"
 
-	"apiserver/rabbitmq"
-
 	dotenv "github.com/joho/godotenv"
+
+	"github.com/jackgraver/cs2c/rabbitmq"
 )
 
 func main() {

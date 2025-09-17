@@ -7,6 +7,7 @@ require (
 	github.com/gin-gonic/gin v1.10.1
 	github.com/joho/godotenv v1.5.1
 	github.com/rabbitmq/amqp091-go v1.10.0
+	github.com/jackgraver/cs2c/rabbitmq v0.0.0
 )
 
 require (
@@ -37,3 +38,5 @@ require (
 	google.golang.org/protobuf v1.36.6 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
+
+replace github.com/jackgraver/cs2c/rabbitmq => ../rabbitmq

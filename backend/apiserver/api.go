@@ -3,7 +3,7 @@ package main
 import (
 	"time"
 
-	"apiserver/rabbitmq"
+	"github.com/jackgraver/cs2c/rabbitmq"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"

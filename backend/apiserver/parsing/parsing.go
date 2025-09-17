@@ -8,7 +8,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"apiserver/rabbitmq"
+	"github.com/jackgraver/cs2c/rabbitmq"
 
 	"github.com/gin-gonic/gin"
 )

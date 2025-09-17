@@ -10,7 +10,7 @@ import (
 
 	parser "parsingservice/parser"
 
-	"parsingservice/rabbitmq"
+	"github.com/jackgraver/cs2c/rabbitmq"
 )
 
 var (

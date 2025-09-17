@@ -1,12 +1,14 @@
 version: "3.9"
 
+name: c2sc-backend
+
 services:
     cs2c-rabbitmq:
         image: rabbitmq:3-management
         container_name: cs2c-rabbitmq
         ports:
-            - "5672:5672" # AMQP
-            - "15672:15672" # Management UI
+            - "5672:5672"
+            - "15672:15672"
         environment:
             RABBITMQ_DEFAULT_USER: guest
             RABBITMQ_DEFAULT_PASS: guest
@@ -17,14 +19,14 @@ services:
         ports:
             - "8080:8080"
         volumes:
-            - ./apiserver:/app # mount source
+            - ./apiserver:/app
+            - demo_store:/app/demo_store
         environment:
             ENV: prod
             RABBITMQ_URL: amqp://guest:guest@cs2c-rabbitmq:5672/
-            STORE_DEMO_PATH: ./demo_store
+            STORE_DEMO_PATH: app/demo_store
         depends_on:
             - cs2c-rabbitmq
-        # command: sh -c "air" # or another live reload tool
         command: go run main.go
 
     cs2c-parsingservice:
@@ -32,12 +34,27 @@ services:
         container_name: cs2c-parsingservice
         volumes:
             - ./parsingservice:/app
+            - demo_store:/app/demo_store
         environment:
             ENV: prod
             RABBITMQ_URL: amqp://guest:guest@cs2c-rabbitmq:5672/
-            STORE_DEMO_PATH: ./demo_store
+            STORE_DEMO_PATH: app/demo_store
         depends_on:
             - cs2c-rabbitmq
             - cs2c-apiserver
-        # command: sh -c "air"
         command: go run main.go
+
+    cs2c-database:
+        image: postgres:15
+        container_name: cs2c-database
+        ports:
+            - "5432:5432"
+        environment:
+            POSTGRES_USER: cs2c
+            POSTGRES_PASSWORD: cs2c
+            POSTGRES_DB: cs2c
+        volumes:
+            - database:/var/lib/postgresql/data
+
+volumes:
+    demo_store:
