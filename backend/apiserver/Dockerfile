@@ -1,22 +1,10 @@
-# Use a small Go image
-FROM golang:1.24.3
-
-# Install Air for live reload
-# RUN apk add --no-cache git curl bash && \
-#     go install github.com/cosmtrek/air@latest
-
+FROM golang:1.24.3 AS builder
 WORKDIR /app
-
-# Copy go.mod/go.sum first for caching
-COPY go.mod ./
-# RUN go mod download
-
-# Copy rest of the code
+COPY go.mod go.sum ./
+RUN go mod download
 COPY . .
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o server
 
-# Expose API port
-EXPOSE 8080
-
-# Run Air (looks for .air.toml)
-# CMD ["air", "-c", ".air.toml"]
-CMD ["go", "run", "main.go"]
+FROM scratch
+COPY --from=builder /app/server /server
+ENTRYPOINT ["/server"]

@@ -3,17 +3,20 @@ package main
 import (
 	"fmt"
 	"log"
+	"os"
 
-	"github.com/jackgraver/cs2c/rabbitmq"
+	"apiserver/rabbitmq"
 
 	dotenv "github.com/joho/godotenv"
 )
 
 func main() {
-	//backend env file
-	err := dotenv.Load("../.env")
-	if err != nil {
-		log.Fatalf("Failed to load .env file: %v", err)
+	if os.Getenv("ENV") != "prod" {
+		// local dev: load .env
+		err := dotenv.Load("../.env")
+		if err != nil {
+			log.Fatalf("Failed to load .env file: %v", err)
+		}
 	}
 
 	//rabbit connection
@@ -22,6 +25,7 @@ func main() {
 		log.Fatalf("Failed to connect to RabbitMQ: %v", err)
 	} else {
 		fmt.Println("Connected to RabbitMQ")
+		rabbitmq.DeclareQueue(rabbitClient.Channel(), "demo_jobs")
 	}
 	defer rabbitClient.Cleanup()
 

@@ -1,9 +1,9 @@
 version: "3.9"
 
 services:
-    rabbitmq:
+    cs2c-rabbitmq:
         image: rabbitmq:3-management
-        container_name: rabbitmq
+        container_name: cs2c-rabbitmq
         ports:
             - "5672:5672" # AMQP
             - "15672:15672" # Management UI
@@ -11,28 +11,33 @@ services:
             RABBITMQ_DEFAULT_USER: guest
             RABBITMQ_DEFAULT_PASS: guest
 
-    apiserver:
+    cs2c-apiserver:
         build: ./apiserver
-        container_name: apiserver
+        container_name: cs2c-apiserver
         ports:
             - "8080:8080"
         volumes:
             - ./apiserver:/app # mount source
         environment:
-            RABBITMQ_URL: amqp://guest:guest@rabbitmq:5672/
+            ENV: prod
+            RABBITMQ_URL: amqp://guest:guest@cs2c-rabbitmq:5672/
+            STORE_DEMO_PATH: ./demo_store
         depends_on:
-            - rabbitmq
+            - cs2c-rabbitmq
         # command: sh -c "air" # or another live reload tool
         command: go run main.go
 
-    parsingservice:
+    cs2c-parsingservice:
         build: ./parsingservice
-        container_name: parsingservice
+        container_name: cs2c-parsingservice
         volumes:
             - ./parsingservice:/app
         environment:
-            RABBITMQ_URL: amqp://guest:guest@rabbitmq:5672/
+            ENV: prod
+            RABBITMQ_URL: amqp://guest:guest@cs2c-rabbitmq:5672/
+            STORE_DEMO_PATH: ./demo_store
         depends_on:
-            - rabbitmq
+            - cs2c-rabbitmq
+            - cs2c-apiserver
         # command: sh -c "air"
         command: go run main.go

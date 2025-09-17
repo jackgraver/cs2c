@@ -3,13 +3,14 @@ package main
 import (
 	"fmt"
 	"log"
+	"os"
 
 	dotenv "github.com/joho/godotenv"
 	amqp "github.com/rabbitmq/amqp091-go"
 
 	parser "parsingservice/parser"
 
-	"github.com/jackgraver/cs2c/rabbitmq"
+	"parsingservice/rabbitmq"
 )
 
 var (
@@ -17,9 +18,12 @@ var (
 )
 
 func main() {
-	err := dotenv.Load("../.env")
-	if err != nil {
-		log.Fatalf("Failed to load .env file: %v", err)
+	if os.Getenv("ENV") != "prod" {
+		// local dev: load .env
+		err := dotenv.Load("../.env")
+		if err != nil {
+			log.Fatalf("Failed to load .env file: %v", err)
+		}
 	}
 
 	//rabbit connection
@@ -39,9 +43,12 @@ func main() {
 }
 
 func waitForMessage() {
-	fmt.Println("message", len(msgs))
 	for d := range msgs {
 		log.Printf("Received message: %s", d.Body)
-		parser.Parse(string(d.Body))
+		if demoID, err := parser.Parse(string(d.Body)); err != nil {
+			log.Printf("Failed to parse demo: %v", err)
+		} else {
+			log.Printf("Demo parsed successfully (%v)", demoID)
+		}
 	}
 }

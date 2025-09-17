@@ -37,8 +37,6 @@ func grenadeTypeConversion(weaponType int) int {
 
 func RegisterGrenadeHandlers(context *HandlerContext) {	
 	context.Parser.RegisterEventHandler(func (e events.GrenadeProjectileThrow) {
-		// fmt.Println("grenade thrown", e.Projectile.Entity.ID())
-
 		thrownGrenade := structs.InAirGrenade {
 			X: e.Projectile.Position().X,
 			Y: e.Projectile.Position().Y,

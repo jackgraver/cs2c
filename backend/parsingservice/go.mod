@@ -3,10 +3,10 @@ module parsingservice
 go 1.24.3
 
 require (
-	github.com/jackgraver/cs2c v0.0.0-00010101000000-000000000000
 	github.com/joho/godotenv v1.5.1
 	github.com/markus-wa/demoinfocs-golang/v4 v4.3.4
 	github.com/rabbitmq/amqp091-go v1.10.0
+    github.com/google/uuid v1.6.0
 )
 
 require (
@@ -21,5 +21,3 @@ require (
 	github.com/pkg/errors v0.9.1 // indirect
 	google.golang.org/protobuf v1.36.4 // indirect
 )
-
-replace github.com/jackgraver/cs2c => ../

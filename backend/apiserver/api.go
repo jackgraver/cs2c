@@ -3,9 +3,10 @@ package main
 import (
 	"time"
 
+	"apiserver/rabbitmq"
+
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
-	"github.com/jackgraver/cs2c/rabbitmq"
 
 	"apiserver/demos"
 	"apiserver/parsing"

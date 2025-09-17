@@ -8,7 +8,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/jackgraver/cs2c/rabbitmq"
+	"apiserver/rabbitmq"
 
 	"github.com/gin-gonic/gin"
 )
@@ -71,7 +71,7 @@ func uploadFile(c *gin.Context) (string, error) {
 		return "", err
 	}
 
-	body := "parse_demo" // message body, could include demo ID
+	body := "falcons-vs-faze-m1-nuke.dem" // message body, could include demo ID
 	err = RabbitClient.Publish("demo_jobs", []byte(body))
 	if err != nil {
 		log.Printf("Failed to publish: %v", err)

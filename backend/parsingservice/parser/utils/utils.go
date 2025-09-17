@@ -25,9 +25,14 @@ func GetPlayerName(p *common.Player) string {
 	return p.Name
 }
 
+func JoinToStoreDir(fileName string) string {
+	storeDir := os.Getenv("STORE_DEMO_PATH")
+	return filepath.Join(storeDir, fileName)
+}
+
 func WriteRoundToFile(round *structs.RoundData, demoID string) {
 	fileName := fmt.Sprintf("r%d.json", round.RoundNum)
-	outputDir := filepath.Join("parsed_demos", demoID)
+	outputDir := JoinToStoreDir(demoID) //filepath.Join("parsed_demos", demoID)
 
 	// Ensure the full path exists: parsed_demos/demoID/
 	if err := os.MkdirAll(outputDir, os.ModePerm); err != nil {
@@ -52,7 +57,8 @@ func WriteRoundToFile(round *structs.RoundData, demoID string) {
 }
 
 func WriteRounds(rounds []structs.RoundData, demoID string) error {
-	outputDir := filepath.Join("parsed_demos", demoID)
+	outputDir := JoinToStoreDir(demoID)
+	// outputDir := filepath.Join("parsed_demos", demoID)
 
 	if err := os.MkdirAll(outputDir, os.ModePerm); err != nil {
 		return fmt.Errorf("failed to create output directory: %w", err)
